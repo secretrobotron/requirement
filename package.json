@@ -11,15 +11,6 @@
 		"node": ">=v0.4.8"
 	},
 	"devDependencies": {
-		"underscore": "*",
-		"jshint": "*",
-		"uglify-js": "*",
-		"express": "*",
-		"vows": "*",
-		"stats": "*",
-		"colors": "*",
-		"zlib": "*",
-		"dateformat": "*",
-		"jsonlint": "*"
+		"whiskers": "*"
 	}
 }
