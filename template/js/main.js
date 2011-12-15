@@ -6,7 +6,7 @@
 */
 (function () {
 
-  define( [], function() {
+  define( [ "./module" ], function( Module ) {
 
     var {loader} = function( callback ) {
 
