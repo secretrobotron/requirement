@@ -3,6 +3,7 @@ var fs = require( "fs" ),
     whiskers = require( "whiskers" );
 
 var TEMPLATE_DIR = "template",
+    PROJECTS_DIR = "projects",
     LICENSES_DIR = TEMPLATE_DIR + "/licenses";
 
 var fileList = [
@@ -17,7 +18,7 @@ var fileList = [
     ],
     fileTasks = [],
     projectName = process.env.project,
-    projectDir = process.env.dir || projectName,
+    projectDir = PROJECTS_DIR + "/" + ( process.env.dir || projectName ),
     loaderName = process.env.loader || projectName,
     licenseFile = LICENSES_DIR + "/" + process.env.license,
     license = "",
@@ -69,3 +70,20 @@ for( var i in fileList ) {
   fileTasks.push( newFileName );
 } //for
 
+task( "clean", function() {
+  function removeFiles( directory ) {
+    var dir = fs.readdirSync( directory );
+    for ( var item in dir ) {
+      var itemPath = directory + "/" + dir[ item ];
+      var stat = fs.lstatSync( itemPath );
+      if ( stat.isDirectory() ) {
+        removeFiles( itemPath );
+        fs.rmdir( itemPath );
+      }
+      else {
+        fs.unlink( itemPath );
+      } //if
+    } //for
+  } //removeFiles
+  removeFiles( PROJECTS_DIR );
+});
