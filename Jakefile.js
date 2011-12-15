@@ -41,12 +41,12 @@ function copyFile( oldFile, newFile ) {
 
 function createFileTask( oldFile, newFile, depends ) {
   file( newFile, [ PROJECTS_DIR, projectDir ].concat( depends ), function() {
-    console.log( "File:", newFile, "from", oldFile, "depends on", depends );
     copyFile( oldFile, newFile );
   });
 } //createFileTask
 
-function createRecursive( newDirName, oldDirName ) {
+function createRecursive( newDirName, oldDirName, depends ) {
+  depends = depends || [];
   var dir = fs.readdirSync( oldDirName );
   for( var i in dir ) {
     var oldItemPath = oldDirName + "/" + dir[ i ],
@@ -54,10 +54,10 @@ function createRecursive( newDirName, oldDirName ) {
         stat = fs.lstatSync( oldItemPath );
     if( stat.isDirectory() ) {
       directory( newItemPath );
-      createRecursive( newItemPath, oldItemPath );
+      createRecursive( newItemPath, oldItemPath, depends.concat( [ newDirName ] ) );
     }
     else {
-      createFileTask( oldItemPath, newItemPath, [ newDirName ] );
+      createFileTask( oldItemPath, newItemPath, depends.concat( [ newDirName ] ) );
       fileTasks.push( newItemPath );
     } //if
   } //for
