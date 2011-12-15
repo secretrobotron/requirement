@@ -1,8 +1,8 @@
 #requirement
-requirement is a [require.js](http://requirejs.org) project creation tool
+__requirement__ is a [require.js](http://requirejs.org) project creation tool.
 
 ##Usage
-The include Jakefile has two tasks:
+The included Jakefile has two tasks:
 
 * default: Builds a project. Takes these arguments: `project`, `authors`, `loader`, and `license`
 * clean: Destroys the contents of the `project` directory
