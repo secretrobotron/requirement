@@ -24,7 +24,7 @@ loading and its work is complete.
 ##Prerequisites
 
 * [node 0.6.6+](http://nodejs.org)
-* [jake](https://github.com/jcoglan/jake) and [wiskers](https://github.com/gsf/whiskers.js):
+* [jake](https://github.com/mde/jake) and [wiskers](https://github.com/gsf/whiskers.js):
   `npm install jake whiskers`
 
 If you installed jake locally, then when `jake` is used below, use
