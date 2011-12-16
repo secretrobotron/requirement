@@ -1,15 +1,13 @@
 /**
  * Build profile for your project. Replaces the use of requirejs with an AMD
  * loader shim, almond.js, since the built file does not need to use
- * all of requirejs.
+ * a dynamic loader.
  */
 ({
   // Where to find the module names listed below.
-  baseUrl: '../src',
+  baseUrl: '../js',
 
-  // Where to find modules that are outside of src.
-  // This setup assumes CubicVR.js is the built output,
-  // so this build file assumes make has already run in CubicVR.js
+  // Where to find modules that are outside of the js/ directory.
   paths: {
   },
 
@@ -28,15 +26,11 @@
   // so it shows up first in the built file,
   // since modules use the define/require APIs that the almond
   // provides. Path is relative to baseUrl.
-  name: '../tools/almond',
+  name: '../build/almond',
 
   // Files to include along with almond. Their nested dependencies will also be
-  // included. Subsystems are listed explicitly because main.js does not
-  // have explicit dependencies for them, but uses them on demand. Also,
-  // loader.js references main.js in a document.write string, so it will
-  // not be found by the AST analysis done in the optimizer.
-  include: [
-           ],
+  // included.
+  include: ['main'],
 
   // Wraps the built file in a closure and exports a closure for your project as a global.
   wrap: {
@@ -45,5 +39,5 @@
   },
 
   // The built main.js file for use by web sites.
-  out: '../dist/main.js'
+  out: '../dist/{loader}.js'
 })

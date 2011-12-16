@@ -6,9 +6,13 @@ All rights reserved.
 {license}
 */
 
-(function () {
+(function (root) {
 
   // Bail if {project} is already loaded in the page.
   if ( this.{loader} ) {
     return;
   }
+
+  // Hold on to any global define, to allow registering this
+  // library as an AMD loader if it is on the page.
+  var oldDefine = this.define;
