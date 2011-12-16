@@ -4,9 +4,9 @@
 
   {license}
 */
-(function () {
+(function (root) {
 
-  define( [ "./module" ], function( Module ) {
+  define( [ "./submodule" ], function( submodule ) {
 
     var {loader} = function( callback ) {
 
@@ -18,17 +18,18 @@
 
     }; //{loader}
 
-    if ( window.{loader}.__waiting ) {
-      for ( var i=0, l=window.{loader}.__waiting.length; i<l; ++i ) {
-        {loader}.apply( {}, window.{loader}.__waiting[ i ] );
+    // In dev, there may be calls that are waiting for the implementation to
+    // show up. Handle them now.
+    if ( root.{loader} && root.{loader}.__waiting ) {
+      for ( var i=0, l=root.{loader}.__waiting.length; i<l; ++i ) {
+        {loader}.apply( {}, root.{loader}.__waiting[ i ] );
       }
       delete {loader}._waiting;
     } //if
 
-    window.{loader} = {loader};
+    root.{loader} = {loader};
     return {loader};
 
   }); //define
 
-})();
-
+}( this ));
