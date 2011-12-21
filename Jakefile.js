@@ -14,6 +14,10 @@ var fileTasks = [],
     license = "",
     authors = process.env.authors || "AUTHORS";
 
+var templateExcludes = [
+      TEMPLATE_DIR + "/licenses"
+    ];
+
 if( licenseFile ) {
   try {
     fs.lstatSync( licenseFile );
@@ -49,16 +53,18 @@ function createRecursive( newDirName, oldDirName, depends ) {
   depends = depends || [];
   var dir = fs.readdirSync( oldDirName );
   for( var i in dir ) {
-    var oldItemPath = oldDirName + "/" + dir[ i ],
+     var oldItemPath = oldDirName + "/" + dir[ i ],
         newItemPath = newDirName + "/" + dir[ i ],
         stat = fs.lstatSync( oldItemPath );
-    if( stat.isDirectory() ) {
-      directory( newItemPath );
-      createRecursive( newItemPath, oldItemPath, depends.concat( [ newDirName ] ) );
-    }
-    else {
-      createFileTask( oldItemPath, newItemPath, depends.concat( [ newDirName ] ) );
-      fileTasks.push( newItemPath );
+    if( templateExcludes.indexOf( oldItemPath ) === -1 ) {
+      if( stat.isDirectory() ) {
+        directory( newItemPath );
+        createRecursive( newItemPath, oldItemPath, depends.concat( [ newDirName ] ) );
+      }
+      else {
+        createFileTask( oldItemPath, newItemPath, depends.concat( [ newDirName ] ) );
+        fileTasks.push( newItemPath );
+      } //if
     } //if
   } //for
 } //createRecursive

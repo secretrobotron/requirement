@@ -5,7 +5,7 @@
  */
 ({
   // Where to find the module names listed below.
-  baseUrl: '../js',
+  baseUrl: '../../js',
 
   // Where to find modules that are outside of the js/ directory.
   paths: {
@@ -34,10 +34,10 @@
 
   // Wraps the built file in a closure and exports a closure for your project as a global.
   wrap: {
-    startFile: 'wrap.start',
-    endFile: 'wrap.end'
+    startFile: '../wrap.start',
+    endFile: '../wrap.end'
   },
 
   // The built main.js file for use by web sites.
-  out: '../dist/{loader}.js'
+  out: '../../dist/{loader}.js'
 })
