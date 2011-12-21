@@ -98,6 +98,7 @@ task( "clean", function() {
   try {
     fs.lstatSync( PROJECTS_DIR );
     removeFiles( PROJECTS_DIR );
+    fs.rmdir( PROJECTS_DIR );
   }
   catch( e ) {
     console.log( "\"" +  PROJECTS_DIR + "\" does not exist" );
