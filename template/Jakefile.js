@@ -3,6 +3,7 @@ var fs = require( "fs" ),
     exec = child_process.exec;
 
 const BUILD_DIR = "./build",
+      SRC_DIR = "./js",
       DIST_DIR = "./dist",
       PROFILES_DIR = BUILD_DIR + "/profiles",
       DEFAULT_PROFILE = PROFILES_DIR + "/default.js"
@@ -13,7 +14,37 @@ if ( process.env.profile ) {
   profile = PROFILES_DIR + "/" + process.env.profile + ".js";
 } //if
 
+function templateReplace( input, replaceDict ) {
+
+  var output = input + "";
+
+  for ( var inPhrase in replaceDict ) {
+    var replacement = replaceDict[ inPhrase ],
+        regex = new RegExp( "%" + inPhrase + "%", "g" );
+    output = output.replace( regex, replacement );
+  } //for
+
+  return output;
+
+} //templateReplate
+
 directory( DIST_DIR );
+
+desc( "Create module" );
+task( "module", function() {
+  var moduleName = process.env.name || "module" + Date.now(),
+      fileName = SRC_DIR + "/" + moduleName + ".js";
+
+  var input = fs.readFileSync( BUILD_DIR + "/module-template.js" );
+
+  var output = templateReplace( input, {
+    module: moduleName
+  });
+
+  fs.writeFileSync( fileName, output );
+  
+});
+
 
 desc( "Build {project}" );
 task( "default", function() {
@@ -35,6 +66,7 @@ task( "default", function() {
   } //try
 });
 
+desc( "Clean {project}" );
 task( "clean", function() {
   function removeFiles( dirName ) {
     var dir = fs.readdirSync( dirName );
