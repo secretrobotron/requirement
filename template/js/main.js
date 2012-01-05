@@ -6,9 +6,9 @@
 */
 (function (root) {
 
-  define( [ "./submodule" ], function( submodule ) {
+  define( [ "./submodule" ], function( submodule ){
 
-    var {loader} = function( callback ) {
+    var {loader} = function( callback ){
 
       // Add your init code here.
 
@@ -20,14 +20,19 @@
 
     // In dev, there may be calls that are waiting for the implementation to
     // show up. Handle them now.
-    if ( root.{loader} && root.{loader}.__waiting ) {
-      for ( var i=0, l=root.{loader}.__waiting.length; i<l; ++i ) {
-        {loader}.apply( {}, root.{loader}.__waiting[ i ] );
+    var waiting;
+    if( root.{loader} ){
+      waiting = root.{loader}.__waiting;
+      delete {loader}.__waiting;
+    }
+    root.{loader} = {loader};
+
+    if( waiting ){
+      for( var i=0, l=waiting.length; i<l; ++i ){
+        {loader}.apply( {}, waiting[ i ] );
       }
-      delete {loader}._waiting;
     } //if
 
-    root.{loader} = {loader};
     return {loader};
 
   }); //define
