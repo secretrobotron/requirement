@@ -3,7 +3,7 @@ var fs = require( "fs" ),
     exec = child_process.exec;
 
 const BUILD_DIR = "./build",
-      SRC_DIR = "./js",
+      SRC_DIR = process.env[ "src-dir" ] || "./js",
       DIST_DIR = "./dist",
       PROFILES_DIR = BUILD_DIR + "/profiles",
       DEFAULT_PROFILE = PROFILES_DIR + "/default.js"
@@ -33,12 +33,13 @@ directory( DIST_DIR );
 desc( "Create module" );
 task( "module", function() {
   var moduleName = process.env.name || "module" + Date.now(),
-      fileName = SRC_DIR + "/" + moduleName + ".js";
+      fileName = SRC_DIR + "/" + moduleName + ".js",
+      safeModuleName = moduleName.replace( /-/g, "_" );
 
   var input = fs.readFileSync( BUILD_DIR + "/module-template.js" );
 
   var output = templateReplace( input, {
-    module: moduleName
+    module: safeModuleName 
   });
 
   fs.writeFileSync( fileName, output );
