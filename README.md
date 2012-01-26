@@ -36,13 +36,17 @@ The included Jakefile has two tasks:
 * default: Builds a project. Takes these arguments: `project`, `authors`,
   `loader`, and `license`
 * clean: Destroys the contents of the `project` directory
+* module: Creates a new js file from a template set up to use require.js
 
 ###Example
 ```
 jake clean
 jake project=test loader=Test authors="Bobby Richter" license=mit
+jake module name=testmodule
 ```
 The above code should produce a project named `test` in the `projects` folder,
 with an object in the global namespace named `Test`, which takes a function as
 its only argument. This function will be called when the project's modules have
 loaded successfully and some setup is complete.
+
+The last line creates a new file in the `js` directory and calls it `testmodule`.
