@@ -1,16 +1,22 @@
 {
-	"author": "",
+	"author": "Bobby Richter, James Burke, Jon Buckley",
 	"name": "requirement",
 	"description": "requirement",
+  "keywords": [
+    "require.js",
+    "require",
+    "requirement"
+  ],
+  "homepage": "http://github.com/secretrobotron/requirement",
 	"version": "0.0.1",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:secretrobotron/requirement.git"
+		"url": "git://github.com/secretrobotron/requirement.git"
 	},
 	"engines": {
 		"node": ">=v0.4.8"
 	},
-	"devDependencies": {
-		"whiskers": "*"
+	"dependencies": {
+		"whiskers": ">=0.1.2"
 	}
 }
